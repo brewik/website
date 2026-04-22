@@ -1,1112 +1,1784 @@
 <!doctype html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Brewik — Gérez votre brasserie, ensemble</title>
-		<meta
-			name="description"
-			content="Brewik réunit tout ce dont votre brasserie artisanale a besoin — recettes, brassins, stocks, DRM — avec une communauté de brasseurs passionnés à travers l'Europe. Gratuit pour commencer."
-		/>
-		<meta
-			property="og:title"
-			content="Brewik — Gérez votre brasserie, ensemble"
-		/>
-		<meta
-			property="og:description"
-			content="Logiciel de gestion pour brasseries artisanales. Gratuit pour commencer, communauté européenne de brasseurs."
-		/>
-		<meta property="og:url" content="https://brewik.com" />
-		<meta property="og:type" content="website" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Brewik — Gérez votre brasserie, ensemble</title>
+        <meta
+            name="description"
+            content="Brewik réunit tout ce dont votre brasserie artisanale a besoin — recettes, brassins, stocks, DRM — avec une communauté de brasseurs passionnés à travers l'Europe. Gratuit pour commencer."
+        />
+        <meta
+            property="og:title"
+            content="Brewik — Gérez votre brasserie, ensemble"
+        />
+        <meta
+            property="og:description"
+            content="Logiciel de gestion pour brasseries artisanales. Gratuit pour commencer, communauté européenne de brasseurs."
+        />
+        <meta property="og:url" content="https://brewik.com" />
+        <meta property="og:type" content="website" />
 
-		<!-- Cloudflare Web Analytics -->
-		<script
-			defer
-			src="https://static.cloudflareinsights.com/beacon.min.js"
-			data-cf-beacon='{"token": "e4ff7399d342414e9030878098eb0d50"}'
-		></script>
-		<!-- End Cloudflare Web Analytics -->
+        <!-- Cloudflare Web Analytics -->
+        <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "e4ff7399d342414e9030878098eb0d50"}'
+        ></script>
+        <!-- End Cloudflare Web Analytics -->
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
-			rel="stylesheet"
-		/>
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-			:root {
-				--amber: #d4820a;
-				--amber-light: #f2a832;
-				--amber-pale: #fff3dc;
-				--dark: #1a1209;
-				--dark-2: #251c0e;
-				--dark-3: #332811;
-				--cream: #f5edd8;
-				--cream-2: #ead9b8;
-				--muted: #8a7355;
-				--text: #f5edd8;
-				--serif: "Playfair Display", Georgia, serif;
-				--sans: "DM Sans", system-ui, sans-serif;
-			}
-			html {
-				scroll-behavior: smooth;
-			}
-			body {
-				background: var(--dark);
-				color: var(--text);
-				font-family: var(--sans);
-				font-size: 16px;
-				line-height: 1.6;
-				overflow-x: hidden;
-			}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            :root {
+                --amber: #d4820a;
+                --amber-light: #f2a832;
+                --amber-pale: #fff3dc;
+                --dark: #1a1209;
+                --dark-2: #251c0e;
+                --dark-3: #332811;
+                --cream: #f5edd8;
+                --cream-2: #ead9b8;
+                --muted: #8a7355;
+                --text: #f5edd8;
+                --serif: "Playfair Display", Georgia, serif;
+                --sans: "DM Sans", system-ui, sans-serif;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                background: var(--dark);
+                color: var(--text);
+                font-family: var(--sans);
+                font-size: 16px;
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
 
-			nav {
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				z-index: 100;
-				padding: 20px 48px;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				background: linear-gradient(
-					to bottom,
-					rgba(26, 18, 9, 0.95),
-					transparent
-				);
-			}
-			.logo {
-				font-family: var(--serif);
-				font-size: 22px;
-				font-weight: 700;
-				color: var(--amber-light);
-				letter-spacing: -0.5px;
-			}
-			.logo span {
-				color: var(--cream);
-				font-weight: 400;
-			}
-			.nav-links {
-				display: flex;
-				align-items: center;
-				gap: 32px;
-			}
-			.nav-links a {
-				font-size: 14px;
-				color: var(--muted);
-				text-decoration: none;
-				transition: color 0.2s;
-			}
-			.nav-links a:hover {
-				color: var(--cream);
-			}
-			.nav-cta {
-				background: var(--amber);
-				color: var(--dark);
-				padding: 8px 20px;
-				border-radius: 4px;
-				font-size: 14px;
-				font-weight: 500;
-				text-decoration: none;
-				transition: background 0.2s;
-			}
-			.nav-cta:hover {
-				background: var(--amber-light);
-				color: var(--dark);
-			}
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                padding: 20px 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(26, 18, 9, 0.95),
+                    transparent
+                );
+            }
+            .logo {
+                font-family: var(--serif);
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--amber-light);
+                letter-spacing: -0.5px;
+            }
+            .logo span {
+                color: var(--cream);
+                font-weight: 400;
+            }
+            .nav-links {
+                display: flex;
+                align-items: center;
+                gap: 32px;
+            }
+            .nav-links a {
+                font-size: 14px;
+                color: var(--muted);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            .nav-links a:hover {
+                color: var(--cream);
+            }
+            .nav-cta {
+                background: var(--amber);
+                color: var(--dark);
+                padding: 8px 20px;
+                border-radius: 4px;
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+                transition: background 0.2s;
+            }
+            .nav-cta:hover {
+                background: var(--amber-light);
+                color: var(--dark);
+            }
 
-			.hero {
-				min-height: 100vh;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				padding: 120px 48px 80px;
-				position: relative;
-				overflow: hidden;
-			}
-			.hero-bg {
-				position: absolute;
-				inset: 0;
-				background: radial-gradient(
-					ellipse 80% 60% at 70% 40%,
-					rgba(212, 130, 10, 0.12) 0%,
-					transparent 70%
-				);
-				pointer-events: none;
-			}
-			.hero-grain {
-				position: absolute;
-				inset: 0;
-				opacity: 0.04;
-				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-				pointer-events: none;
-			}
-			.hero-eyebrow {
-				font-size: 12px;
-				font-weight: 500;
-				letter-spacing: 0.15em;
-				color: var(--amber);
-				text-transform: uppercase;
-				margin-bottom: 24px;
-				opacity: 0;
-				animation: fadeUp 0.6s 0.2s forwards;
-			}
-			.hero-title {
-				font-family: var(--serif);
-				font-size: clamp(48px, 7vw, 96px);
-				font-weight: 900;
-				line-height: 1;
-				color: var(--cream);
-				margin-bottom: 28px;
-				max-width: 700px;
-				opacity: 0;
-				animation: fadeUp 0.6s 0.35s forwards;
-			}
-			.hero-title em {
-				font-style: italic;
-				color: var(--amber-light);
-			}
-			.hero-sub {
-				font-size: 18px;
-				color: var(--muted);
-				max-width: 480px;
-				line-height: 1.7;
-				margin-bottom: 48px;
-				font-weight: 300;
-				opacity: 0;
-				animation: fadeUp 0.6s 0.5s forwards;
-			}
-			.hero-actions {
-				display: flex;
-				align-items: center;
-				gap: 20px;
-				flex-wrap: wrap;
-				opacity: 0;
-				animation: fadeUp 0.6s 0.65s forwards;
-			}
-			.btn-primary {
-				background: var(--amber);
-				color: var(--dark);
-				padding: 14px 32px;
-				border-radius: 4px;
-				font-size: 15px;
-				font-weight: 500;
-				text-decoration: none;
-				border: none;
-				cursor: pointer;
-				transition:
-					background 0.2s,
-					transform 0.1s;
-				font-family: var(--sans);
-			}
-			.btn-primary:hover {
-				background: var(--amber-light);
-				transform: translateY(-1px);
-			}
-			.btn-ghost {
-				color: var(--cream-2);
-				font-size: 14px;
-				text-decoration: none;
-				border-bottom: 1px solid var(--muted);
-				padding-bottom: 2px;
-				transition:
-					border-color 0.2s,
-					color 0.2s;
-			}
-			.btn-ghost:hover {
-				color: var(--amber-light);
-				border-color: var(--amber-light);
-			}
-			.hero-badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 8px;
-				background: rgba(212, 130, 10, 0.15);
-				border: 1px solid rgba(212, 130, 10, 0.3);
-				border-radius: 20px;
-				padding: 6px 14px;
-				font-size: 13px;
-				color: var(--amber-light);
-				margin-bottom: 32px;
-				opacity: 0;
-				animation: fadeUp 0.6s 0.2s forwards;
-			}
-			.hero-badge::before {
-				content: "";
-				width: 6px;
-				height: 6px;
-				border-radius: 50%;
-				background: var(--amber-light);
-			}
-			.hero-visual {
-				position: absolute;
-				right: -60px;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 420px;
-				height: 420px;
-				border-radius: 50%;
-				border: 1px solid rgba(212, 130, 10, 0.15);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				opacity: 0;
-				animation: fadeIn 0.8s 0.8s forwards;
-			}
-			.hero-visual::before {
-				content: "";
-				position: absolute;
-				width: 340px;
-				height: 340px;
-				border-radius: 50%;
-				border: 1px solid rgba(212, 130, 10, 0.1);
-			}
-			.hero-visual::after {
-				content: "";
-				position: absolute;
-				width: 260px;
-				height: 260px;
-				border-radius: 50%;
-				background: radial-gradient(
-					circle,
-					rgba(212, 130, 10, 0.1),
-					transparent
-				);
-			}
-			.brew-icon {
-				font-size: 80px;
-				opacity: 0.6;
-			}
+            .lang-switcher {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+            }
+            .lang-switcher button {
+                background: none;
+                border: none;
+                color: var(--muted);
+                font-size: 11px;
+                font-weight: 500;
+                font-family: var(--sans);
+                cursor: pointer;
+                padding: 4px 7px;
+                border-radius: 3px;
+                transition:
+                    color 0.2s,
+                    background 0.2s;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+            }
+            .lang-switcher button:hover {
+                color: var(--cream);
+            }
+            .lang-switcher button.active {
+                color: var(--amber-light);
+                background: rgba(212, 130, 10, 0.15);
+            }
 
-			.stats {
-				padding: 64px 48px;
-				border-top: 1px solid rgba(245, 237, 216, 0.08);
-				border-bottom: 1px solid rgba(245, 237, 216, 0.08);
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-				gap: 48px;
-			}
-			.stat-item {
-				text-align: center;
-			}
-			.stat-num {
-				font-family: var(--serif);
-				font-size: 48px;
-				font-weight: 700;
-				color: var(--amber-light);
-				line-height: 1;
-			}
-			.stat-label {
-				font-size: 14px;
-				color: var(--muted);
-				margin-top: 8px;
-			}
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 120px 48px 80px;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero-bg {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                    ellipse 80% 60% at 70% 40%,
+                    rgba(212, 130, 10, 0.12) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+            .hero-grain {
+                position: absolute;
+                inset: 0;
+                opacity: 0.04;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+                pointer-events: none;
+            }
+            .hero-eyebrow {
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 0.15em;
+                color: var(--amber);
+                text-transform: uppercase;
+                margin-bottom: 24px;
+                opacity: 0;
+                animation: fadeUp 0.6s 0.2s forwards;
+            }
+            .hero-title {
+                font-family: var(--serif);
+                font-size: clamp(48px, 7vw, 96px);
+                font-weight: 900;
+                line-height: 1;
+                color: var(--cream);
+                margin-bottom: 28px;
+                max-width: 700px;
+                opacity: 0;
+                animation: fadeUp 0.6s 0.35s forwards;
+            }
+            .hero-title em {
+                font-style: italic;
+                color: var(--amber-light);
+            }
+            .hero-sub {
+                font-size: 18px;
+                color: var(--muted);
+                max-width: 480px;
+                line-height: 1.7;
+                margin-bottom: 48px;
+                font-weight: 300;
+                opacity: 0;
+                animation: fadeUp 0.6s 0.5s forwards;
+            }
+            .hero-actions {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                opacity: 0;
+                animation: fadeUp 0.6s 0.65s forwards;
+            }
+            .btn-primary {
+                background: var(--amber);
+                color: var(--dark);
+                padding: 14px 32px;
+                border-radius: 4px;
+                font-size: 15px;
+                font-weight: 500;
+                text-decoration: none;
+                border: none;
+                cursor: pointer;
+                transition:
+                    background 0.2s,
+                    transform 0.1s;
+                font-family: var(--sans);
+            }
+            .btn-primary:hover {
+                background: var(--amber-light);
+                transform: translateY(-1px);
+            }
+            .btn-ghost {
+                color: var(--cream-2);
+                font-size: 14px;
+                text-decoration: none;
+                border-bottom: 1px solid var(--muted);
+                padding-bottom: 2px;
+                transition:
+                    border-color 0.2s,
+                    color 0.2s;
+            }
+            .btn-ghost:hover {
+                color: var(--amber-light);
+                border-color: var(--amber-light);
+            }
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(212, 130, 10, 0.15);
+                border: 1px solid rgba(212, 130, 10, 0.3);
+                border-radius: 20px;
+                padding: 6px 14px;
+                font-size: 13px;
+                color: var(--amber-light);
+                margin-bottom: 32px;
+                opacity: 0;
+                animation: fadeUp 0.6s 0.2s forwards;
+            }
+            .hero-badge::before {
+                content: "";
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--amber-light);
+            }
+            .hero-visual {
+                position: absolute;
+                right: -60px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 420px;
+                height: 420px;
+                border-radius: 50%;
+                border: 1px solid rgba(212, 130, 10, 0.15);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                animation: fadeIn 0.8s 0.8s forwards;
+            }
+            .hero-visual::before {
+                content: "";
+                position: absolute;
+                width: 340px;
+                height: 340px;
+                border-radius: 50%;
+                border: 1px solid rgba(212, 130, 10, 0.1);
+            }
+            .hero-visual::after {
+                content: "";
+                position: absolute;
+                width: 260px;
+                height: 260px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(212, 130, 10, 0.1),
+                    transparent
+                );
+            }
+            .brew-icon {
+                font-size: 80px;
+                opacity: 0.6;
+            }
 
-			.features {
-				padding: 100px 48px;
-			}
-			.section-header {
-				margin-bottom: 64px;
-			}
-			.section-eyebrow {
-				font-size: 12px;
-				letter-spacing: 0.15em;
-				color: var(--amber);
-				text-transform: uppercase;
-				font-weight: 500;
-				margin-bottom: 16px;
-			}
-			.section-title {
-				font-family: var(--serif);
-				font-size: clamp(32px, 4vw, 52px);
-				font-weight: 700;
-				color: var(--cream);
-				line-height: 1.15;
-				max-width: 560px;
-			}
-			.features-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-				gap: 2px;
-				background: rgba(245, 237, 216, 0.06);
-			}
-			.feature {
-				background: var(--dark);
-				padding: 40px;
-				transition: background 0.2s;
-			}
-			.feature:hover {
-				background: var(--dark-2);
-			}
-			.feature-num {
-				font-family: var(--serif);
-				font-size: 48px;
-				color: rgba(212, 130, 10, 0.2);
-				font-weight: 900;
-				line-height: 1;
-				margin-bottom: 16px;
-			}
-			.feature-title {
-				font-size: 18px;
-				font-weight: 500;
-				color: var(--cream);
-				margin-bottom: 12px;
-			}
-			.feature-body {
-				font-size: 14px;
-				color: var(--muted);
-				line-height: 1.7;
-			}
-			.feature-tag {
-				display: inline-block;
-				margin-top: 16px;
-				font-size: 11px;
-				padding: 3px 10px;
-				border: 1px solid rgba(212, 130, 10, 0.3);
-				border-radius: 20px;
-				color: var(--amber);
-				letter-spacing: 0.05em;
-			}
+            .stats {
+                padding: 64px 48px;
+                border-top: 1px solid rgba(245, 237, 216, 0.08);
+                border-bottom: 1px solid rgba(245, 237, 216, 0.08);
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 48px;
+            }
+            .stat-item {
+                text-align: center;
+            }
+            .stat-num {
+                font-family: var(--serif);
+                font-size: 48px;
+                font-weight: 700;
+                color: var(--amber-light);
+                line-height: 1;
+            }
+            .stat-label {
+                font-size: 14px;
+                color: var(--muted);
+                margin-top: 8px;
+            }
 
-			.community {
-				padding: 100px 48px;
-				background: var(--dark-2);
-				position: relative;
-				overflow: hidden;
-			}
-			.community-bg {
-				position: absolute;
-				right: -200px;
-				top: -100px;
-				width: 600px;
-				height: 600px;
-				border-radius: 50%;
-				background: radial-gradient(
-					circle,
-					rgba(212, 130, 10, 0.06),
-					transparent 70%
-				);
-				pointer-events: none;
-			}
-			.community-inner {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 80px;
-				align-items: center;
-				max-width: 1100px;
-				margin: 0 auto;
-			}
-			.community-text .section-title {
-				max-width: 100%;
-			}
-			.community-text p {
-				font-size: 16px;
-				color: var(--muted);
-				line-height: 1.8;
-				margin-top: 24px;
-				font-weight: 300;
-			}
-			.recipe-cards {
-				display: flex;
-				flex-direction: column;
-				gap: 12px;
-			}
-			.recipe-card {
-				background: var(--dark-3);
-				border: 1px solid rgba(245, 237, 216, 0.08);
-				border-radius: 8px;
-				padding: 20px;
-				transition: border-color 0.2s;
-			}
-			.recipe-card:hover {
-				border-color: rgba(212, 130, 10, 0.3);
-			}
-			.recipe-header {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-start;
-				margin-bottom: 8px;
-			}
-			.recipe-name {
-				font-size: 15px;
-				font-weight: 500;
-				color: var(--cream);
-			}
-			.recipe-style {
-				font-size: 11px;
-				padding: 2px 8px;
-				background: rgba(212, 130, 10, 0.15);
-				color: var(--amber);
-				border-radius: 20px;
-			}
-			.recipe-meta {
-				display: flex;
-				gap: 16px;
-			}
-			.recipe-meta span {
-				font-size: 12px;
-				color: var(--muted);
-			}
-			.recipe-meta strong {
-				color: var(--cream-2);
-			}
-			.recipe-author {
-				font-size: 12px;
-				color: var(--muted);
-				margin-top: 10px;
-				padding-top: 10px;
-				border-top: 1px solid rgba(245, 237, 216, 0.06);
-			}
+            .features {
+                padding: 100px 48px;
+            }
+            .section-header {
+                margin-bottom: 64px;
+            }
+            .section-eyebrow {
+                font-size: 12px;
+                letter-spacing: 0.15em;
+                color: var(--amber);
+                text-transform: uppercase;
+                font-weight: 500;
+                margin-bottom: 16px;
+            }
+            .section-title {
+                font-family: var(--serif);
+                font-size: clamp(32px, 4vw, 52px);
+                font-weight: 700;
+                color: var(--cream);
+                line-height: 1.15;
+                max-width: 560px;
+            }
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2px;
+                background: rgba(245, 237, 216, 0.06);
+            }
+            .feature {
+                background: var(--dark);
+                padding: 40px;
+                transition: background 0.2s;
+            }
+            .feature:hover {
+                background: var(--dark-2);
+            }
+            .feature-num {
+                font-family: var(--serif);
+                font-size: 48px;
+                color: rgba(212, 130, 10, 0.2);
+                font-weight: 900;
+                line-height: 1;
+                margin-bottom: 16px;
+            }
+            .feature-title {
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--cream);
+                margin-bottom: 12px;
+            }
+            .feature-body {
+                font-size: 14px;
+                color: var(--muted);
+                line-height: 1.7;
+            }
+            .feature-tag {
+                display: inline-block;
+                margin-top: 16px;
+                font-size: 11px;
+                padding: 3px 10px;
+                border: 1px solid rgba(212, 130, 10, 0.3);
+                border-radius: 20px;
+                color: var(--amber);
+                letter-spacing: 0.05em;
+            }
 
-			.pricing {
-				padding: 100px 48px;
-			}
-			.pricing-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-				gap: 2px;
-				background: rgba(245, 237, 216, 0.06);
-				margin-top: 64px;
-				max-width: 900px;
-			}
-			.plan {
-				background: var(--dark);
-				padding: 40px;
-			}
-			.plan.featured {
-				background: var(--dark-2);
-				position: relative;
-			}
-			.plan-badge {
-				position: absolute;
-				top: -1px;
-				left: 50%;
-				transform: translateX(-50%);
-				background: var(--amber);
-				color: var(--dark);
-				font-size: 11px;
-				font-weight: 500;
-				padding: 4px 16px;
-				border-radius: 0 0 8px 8px;
-				white-space: nowrap;
-			}
-			.plan-name {
-				font-size: 13px;
-				letter-spacing: 0.1em;
-				color: var(--muted);
-				text-transform: uppercase;
-				font-weight: 500;
-				margin-bottom: 16px;
-			}
-			.plan-price {
-				font-family: var(--serif);
-				font-size: 52px;
-				font-weight: 700;
-				color: var(--cream);
-				line-height: 1;
-			}
-			.plan-price span {
-				font-size: 16px;
-				font-weight: 300;
-				color: var(--muted);
-				font-family: var(--sans);
-			}
-			.plan-desc {
-				font-size: 14px;
-				color: var(--muted);
-				margin: 12px 0 28px;
-				line-height: 1.6;
-			}
-			.plan-feats {
-				list-style: none;
-				display: flex;
-				flex-direction: column;
-				gap: 10px;
-				margin-bottom: 32px;
-			}
-			.plan-feats li {
-				font-size: 14px;
-				color: var(--muted);
-				display: flex;
-				align-items: center;
-				gap: 10px;
-			}
-			.plan-feats li::before {
-				content: "";
-				width: 16px;
-				height: 16px;
-				border-radius: 50%;
-				background: rgba(212, 130, 10, 0.2);
-				border: 1px solid rgba(212, 130, 10, 0.4);
-				flex-shrink: 0;
-			}
-			.plan-feats li.active {
-				color: var(--cream-2);
-			}
-			.plan-feats li.active::before {
-				background: var(--amber);
-				border-color: var(--amber);
-			}
-			.plan-feats li.locked {
-				opacity: 0.4;
-			}
-			.plan-feats li.locked::before {
-				background: transparent;
-				border-color: rgba(245, 237, 216, 0.15);
-			}
-			.plan-btn {
-				display: block;
-				text-align: center;
-				padding: 12px;
-				border-radius: 4px;
-				font-size: 14px;
-				font-weight: 500;
-				text-decoration: none;
-				border: 1px solid rgba(212, 130, 10, 0.4);
-				color: var(--amber);
-				transition: all 0.2s;
-				cursor: pointer;
-				background: transparent;
-				width: 100%;
-				font-family: var(--sans);
-			}
-			.plan-btn:hover {
-				background: rgba(212, 130, 10, 0.1);
-			}
-			.plan-btn.primary {
-				background: var(--amber);
-				color: var(--dark);
-				border-color: var(--amber);
-			}
-			.plan-btn.primary:hover {
-				background: var(--amber-light);
-			}
+            .community {
+                padding: 100px 48px;
+                background: var(--dark-2);
+                position: relative;
+                overflow: hidden;
+            }
+            .community-bg {
+                position: absolute;
+                right: -200px;
+                top: -100px;
+                width: 600px;
+                height: 600px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(212, 130, 10, 0.06),
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+            .community-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 80px;
+                align-items: center;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+            .community-text .section-title {
+                max-width: 100%;
+            }
+            .community-text p {
+                font-size: 16px;
+                color: var(--muted);
+                line-height: 1.8;
+                margin-top: 24px;
+                font-weight: 300;
+            }
+            .recipe-cards {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .recipe-card {
+                background: var(--dark-3);
+                border: 1px solid rgba(245, 237, 216, 0.08);
+                border-radius: 8px;
+                padding: 20px;
+                transition: border-color 0.2s;
+            }
+            .recipe-card:hover {
+                border-color: rgba(212, 130, 10, 0.3);
+            }
+            .recipe-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 8px;
+            }
+            .recipe-name {
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--cream);
+            }
+            .recipe-style {
+                font-size: 11px;
+                padding: 2px 8px;
+                background: rgba(212, 130, 10, 0.15);
+                color: var(--amber);
+                border-radius: 20px;
+            }
+            .recipe-meta {
+                display: flex;
+                gap: 16px;
+            }
+            .recipe-meta span {
+                font-size: 12px;
+                color: var(--muted);
+            }
+            .recipe-meta strong {
+                color: var(--cream-2);
+            }
+            .recipe-author {
+                font-size: 12px;
+                color: var(--muted);
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid rgba(245, 237, 216, 0.06);
+            }
 
-			.waitlist {
-				padding: 100px 48px;
-				text-align: center;
-				position: relative;
-				overflow: hidden;
-			}
-			.waitlist-bg {
-				position: absolute;
-				inset: 0;
-				background: radial-gradient(
-					ellipse 60% 80% at 50% 100%,
-					rgba(212, 130, 10, 0.1),
-					transparent
-				);
-				pointer-events: none;
-			}
-			.waitlist .section-title {
-				margin: 0 auto 16px;
-				text-align: center;
-			}
-			.waitlist p {
-				font-size: 16px;
-				color: var(--muted);
-				margin-bottom: 40px;
-			}
-			.waitlist-form {
-				display: flex;
-				gap: 0;
-				max-width: 480px;
-				margin: 0 auto;
-				border: 1px solid rgba(212, 130, 10, 0.3);
-				border-radius: 4px;
-				overflow: hidden;
-			}
-			.waitlist-form input[type="email"] {
-				flex: 1;
-				background: transparent;
-				border: none;
-				padding: 14px 20px;
-				font-size: 15px;
-				color: var(--cream);
-				font-family: var(--sans);
-				outline: none;
-			}
-			.waitlist-form input[type="email"]::placeholder {
-				color: var(--muted);
-			}
-			.waitlist-form button {
-				background: var(--amber);
-				color: var(--dark);
-				border: none;
-				padding: 14px 28px;
-				font-size: 14px;
-				font-weight: 500;
-				cursor: pointer;
-				font-family: var(--sans);
-				transition: background 0.2s;
-				white-space: nowrap;
-			}
-			.waitlist-form button:hover {
-				background: var(--amber-light);
-			}
-			.waitlist-form button:disabled {
-				opacity: 0.6;
-				cursor: not-allowed;
-			}
-			.waitlist-note {
-				font-size: 13px;
-				color: var(--muted);
-				margin-top: 16px;
-			}
-			.waitlist-count {
-				display: inline-flex;
-				align-items: center;
-				gap: 8px;
-				margin-bottom: 32px;
-				background: rgba(212, 130, 10, 0.1);
-				border: 1px solid rgba(212, 130, 10, 0.2);
-				border-radius: 20px;
-				padding: 6px 16px;
-				font-size: 13px;
-				color: var(--amber-light);
-			}
-			.waitlist-count::before {
-				content: "";
-				width: 6px;
-				height: 6px;
-				border-radius: 50%;
-				background: var(--amber-light);
-			}
-			.success-msg {
-				display: none;
-				font-size: 15px;
-				color: var(--amber-light);
-				margin-top: 20px;
-				padding: 16px 24px;
-				border: 1px solid rgba(212, 130, 10, 0.3);
-				border-radius: 4px;
-				max-width: 480px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			.success-msg.show {
-				display: block;
-			}
-			.error-msg {
-				display: none;
-				font-size: 14px;
-				color: #f09595;
-				margin-top: 12px;
-			}
-			.error-msg.show {
-				display: block;
-			}
+            .pricing {
+                padding: 100px 48px;
+            }
+            .pricing-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 2px;
+                background: rgba(245, 237, 216, 0.06);
+                margin-top: 64px;
+                max-width: 900px;
+            }
+            .plan {
+                background: var(--dark);
+                padding: 40px;
+            }
+            .plan.featured {
+                background: var(--dark-2);
+                position: relative;
+            }
+            .plan-badge {
+                position: absolute;
+                top: -1px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--amber);
+                color: var(--dark);
+                font-size: 11px;
+                font-weight: 500;
+                padding: 4px 16px;
+                border-radius: 0 0 8px 8px;
+                white-space: nowrap;
+            }
+            .plan-name {
+                font-size: 13px;
+                letter-spacing: 0.1em;
+                color: var(--muted);
+                text-transform: uppercase;
+                font-weight: 500;
+                margin-bottom: 16px;
+            }
+            .plan-price {
+                font-family: var(--serif);
+                font-size: 52px;
+                font-weight: 700;
+                color: var(--cream);
+                line-height: 1;
+            }
+            .plan-price span {
+                font-size: 16px;
+                font-weight: 300;
+                color: var(--muted);
+                font-family: var(--sans);
+            }
+            .plan-desc {
+                font-size: 14px;
+                color: var(--muted);
+                margin: 12px 0 28px;
+                line-height: 1.6;
+            }
+            .plan-feats {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 32px;
+            }
+            .plan-feats li {
+                font-size: 14px;
+                color: var(--muted);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .plan-feats li::before {
+                content: "";
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: rgba(212, 130, 10, 0.2);
+                border: 1px solid rgba(212, 130, 10, 0.4);
+                flex-shrink: 0;
+            }
+            .plan-feats li.active {
+                color: var(--cream-2);
+            }
+            .plan-feats li.active::before {
+                background: var(--amber);
+                border-color: var(--amber);
+            }
+            .plan-feats li.locked {
+                opacity: 0.4;
+            }
+            .plan-feats li.locked::before {
+                background: transparent;
+                border-color: rgba(245, 237, 216, 0.15);
+            }
+            .plan-btn {
+                display: block;
+                text-align: center;
+                padding: 12px;
+                border-radius: 4px;
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+                border: 1px solid rgba(212, 130, 10, 0.4);
+                color: var(--amber);
+                transition: all 0.2s;
+                cursor: pointer;
+                background: transparent;
+                width: 100%;
+                font-family: var(--sans);
+            }
+            .plan-btn:hover {
+                background: rgba(212, 130, 10, 0.1);
+            }
+            .plan-btn.primary {
+                background: var(--amber);
+                color: var(--dark);
+                border-color: var(--amber);
+            }
+            .plan-btn.primary:hover {
+                background: var(--amber-light);
+            }
 
-			footer {
-				padding: 40px 48px;
-				border-top: 1px solid rgba(245, 237, 216, 0.08);
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				flex-wrap: wrap;
-				gap: 16px;
-			}
-			.footer-logo {
-				font-family: var(--serif);
-				font-size: 18px;
-				font-weight: 700;
-				color: var(--amber-light);
-			}
-			.footer-links {
-				display: flex;
-				gap: 24px;
-			}
-			.footer-links a {
-				font-size: 13px;
-				color: var(--muted);
-				text-decoration: none;
-			}
-			.footer-links a:hover {
-				color: var(--cream);
-			}
-			.footer-text {
-				font-size: 13px;
-				color: var(--muted);
-			}
+            .waitlist {
+                padding: 100px 48px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .waitlist-bg {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                    ellipse 60% 80% at 50% 100%,
+                    rgba(212, 130, 10, 0.1),
+                    transparent
+                );
+                pointer-events: none;
+            }
+            .waitlist .section-title {
+                margin: 0 auto 16px;
+                text-align: center;
+            }
+            .waitlist p {
+                font-size: 16px;
+                color: var(--muted);
+                margin-bottom: 40px;
+            }
+            .waitlist-form {
+                display: flex;
+                gap: 0;
+                max-width: 480px;
+                margin: 0 auto;
+                border: 1px solid rgba(212, 130, 10, 0.3);
+                border-radius: 4px;
+                overflow: hidden;
+            }
+            .waitlist-form input[type="email"] {
+                flex: 1;
+                background: transparent;
+                border: none;
+                padding: 14px 20px;
+                font-size: 15px;
+                color: var(--cream);
+                font-family: var(--sans);
+                outline: none;
+            }
+            .waitlist-form input[type="email"]::placeholder {
+                color: var(--muted);
+            }
+            .waitlist-form button {
+                background: var(--amber);
+                color: var(--dark);
+                border: none;
+                padding: 14px 28px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                font-family: var(--sans);
+                transition: background 0.2s;
+                white-space: nowrap;
+            }
+            .waitlist-form button:hover {
+                background: var(--amber-light);
+            }
+            .waitlist-form button:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+            .waitlist-note {
+                font-size: 13px;
+                color: var(--muted);
+                margin-top: 16px;
+            }
+            .waitlist-count {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 32px;
+                background: rgba(212, 130, 10, 0.1);
+                border: 1px solid rgba(212, 130, 10, 0.2);
+                border-radius: 20px;
+                padding: 6px 16px;
+                font-size: 13px;
+                color: var(--amber-light);
+            }
+            .waitlist-count::before {
+                content: "";
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--amber-light);
+            }
+            .success-msg {
+                display: none;
+                font-size: 15px;
+                color: var(--amber-light);
+                margin-top: 20px;
+                padding: 16px 24px;
+                border: 1px solid rgba(212, 130, 10, 0.3);
+                border-radius: 4px;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .success-msg.show {
+                display: block;
+            }
+            .error-msg {
+                display: none;
+                font-size: 14px;
+                color: #f09595;
+                margin-top: 12px;
+            }
+            .error-msg.show {
+                display: block;
+            }
 
-			@keyframes fadeUp {
-				from {
-					opacity: 0;
-					transform: translateY(20px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-			@keyframes fadeIn {
-				from {
-					opacity: 0;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-			.reveal {
-				opacity: 0;
-				transform: translateY(24px);
-				transition:
-					opacity 0.6s,
-					transform 0.6s;
-			}
-			.reveal.visible {
-				opacity: 1;
-				transform: translateY(0);
-			}
+            footer {
+                padding: 40px 48px;
+                border-top: 1px solid rgba(245, 237, 216, 0.08);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .footer-logo {
+                font-family: var(--serif);
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--amber-light);
+            }
+            .footer-links {
+                display: flex;
+                gap: 24px;
+            }
+            .footer-links a {
+                font-size: 13px;
+                color: var(--muted);
+                text-decoration: none;
+            }
+            .footer-links a:hover {
+                color: var(--cream);
+            }
+            .footer-text {
+                font-size: 13px;
+                color: var(--muted);
+            }
 
-			@media (max-width: 768px) {
-				nav {
-					padding: 16px 24px;
-				}
-				.nav-links {
-					display: none;
-				}
-				.hero {
-					padding: 100px 24px 60px;
-				}
-				.hero-visual {
-					display: none;
-				}
-				.stats {
-					padding: 48px 24px;
-					gap: 32px;
-				}
-				.features,
-				.community,
-				.pricing,
-				.waitlist {
-					padding: 64px 24px;
-				}
-				.community-inner {
-					grid-template-columns: 1fr;
-					gap: 40px;
-				}
-				.waitlist-form {
-					flex-direction: column;
-					border: none;
-					gap: 8px;
-				}
-				.waitlist-form input[type="email"] {
-					border: 1px solid rgba(212, 130, 10, 0.3);
-					border-radius: 4px;
-					padding: 12px 16px;
-				}
-				.waitlist-form button {
-					border-radius: 4px;
-					padding: 12px;
-				}
-				footer {
-					padding: 32px 24px;
-					flex-direction: column;
-					text-align: center;
-				}
-				.footer-links {
-					justify-content: center;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<nav>
-			<div class="logo">Brew<span>ik</span></div>
-			<div class="nav-links">
-				<a href="#features">Fonctionnalités</a>
-				<a href="#community">Communauté</a>
-				<a href="#pricing">Tarifs</a>
-				<a class="nav-cta" href="#waitlist">Rejoindre la bêta</a>
-			</div>
-		</nav>
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .reveal {
+                opacity: 0;
+                transform: translateY(24px);
+                transition:
+                    opacity 0.6s,
+                    transform 0.6s;
+            }
+            .reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-		<section class="hero">
-			<div class="hero-bg"></div>
-			<div class="hero-grain"></div>
-			<div class="hero-badge">
-				Bêta ouverte bientôt — 0€ pour commencer
-			</div>
-			<p class="hero-eyebrow">
-				Logiciel de gestion pour brasseries artisanales
-			</p>
-			<h1 class="hero-title">
-				Brassez.<br /><em>Gérez.</em><br />Partagez.
-			</h1>
-			<p class="hero-sub">
-				Brewik réunit tout ce dont votre brasserie a besoin — recettes,
-				brassins, stocks, DRM — avec une communauté de brasseurs
-				passionnés à travers l'Europe.
-			</p>
-			<div class="hero-actions">
-				<a href="#waitlist" class="btn-primary"
-					>Rejoindre la liste d'attente</a
-				>
-				<a href="#features" class="btn-ghost"
-					>Découvrir les fonctionnalités</a
-				>
-			</div>
-			<div class="hero-visual">
-				<div class="brew-icon">🍺</div>
-			</div>
-		</section>
+            @media (max-width: 768px) {
+                nav {
+                    padding: 16px 24px;
+                }
+                .nav-links {
+                    display: none;
+                }
+                .hero {
+                    padding: 100px 24px 60px;
+                }
+                .hero-visual {
+                    display: none;
+                }
+                .stats {
+                    padding: 48px 24px;
+                    gap: 32px;
+                }
+                .features,
+                .community,
+                .pricing,
+                .waitlist {
+                    padding: 64px 24px;
+                }
+                .community-inner {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                }
+                .waitlist-form {
+                    flex-direction: column;
+                    border: none;
+                    gap: 8px;
+                }
+                .waitlist-form input[type="email"] {
+                    border: 1px solid rgba(212, 130, 10, 0.3);
+                    border-radius: 4px;
+                    padding: 12px 16px;
+                }
+                .waitlist-form button {
+                    border-radius: 4px;
+                    padding: 12px;
+                }
+                footer {
+                    padding: 32px 24px;
+                    flex-direction: column;
+                    text-align: center;
+                }
+                .footer-links {
+                    justify-content: center;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="logo">Brew<span>ik</span></div>
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav.features">Fonctionnalités</a>
+                <a href="#community" data-i18n="nav.community">Communauté</a>
+                <a href="#pricing" data-i18n="nav.pricing">Tarifs</a>
+                <a class="nav-cta" href="#waitlist" data-i18n="nav.cta"
+                    >Rejoindre la bêta</a
+                >
+            </div>
+            <div class="lang-switcher">
+                <button
+                    data-lang-btn="fr"
+                    onclick="setLang('fr')"
+                    class="active"
+                >
+                    FR
+                </button>
+                <button data-lang-btn="en" onclick="setLang('en')">EN</button>
+                <button data-lang-btn="es" onclick="setLang('es')">ES</button>
+            </div>
+        </nav>
 
-		<section class="stats">
-			<div class="stat-item reveal">
-				<div class="stat-num">0€</div>
-				<div class="stat-label">
-					Pour commencer — plan gratuit permanent
-				</div>
-			</div>
-			<div class="stat-item reveal">
-				<div class="stat-num">6+</div>
-				<div class="stat-label">
-					Pays européens supportés dès le lancement
-				</div>
-			</div>
-			<div class="stat-item reveal">
-				<div class="stat-num">1 clic</div>
-				<div class="stat-label">Pour générer votre DRM mensuelle</div>
-			</div>
-			<div class="stat-item reveal">
-				<div class="stat-num">∞</div>
-				<div class="stat-label">
-					Recettes dans la bibliothèque communautaire
-				</div>
-			</div>
-		</section>
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-grain"></div>
+            <div class="hero-badge" data-i18n="hero.badge">
+                Bêta ouverte bientôt — 0€ pour commencer
+            </div>
+            <p class="hero-eyebrow" data-i18n="hero.eyebrow">
+                Logiciel de gestion pour brasseries artisanales
+            </p>
+            <h1 class="hero-title" data-i18n-html="hero.title">
+                Brassez.<br /><em>Gérez.</em><br />Partagez.
+            </h1>
+            <p class="hero-sub" data-i18n="hero.sub">
+                Brewik réunit tout ce dont votre brasserie a besoin — recettes,
+                brassins, stocks, DRM — avec une communauté de brasseurs
+                passionnés à travers l'Europe.
+            </p>
+            <div class="hero-actions">
+                <a href="#waitlist" class="btn-primary" data-i18n="hero.cta1"
+                    >Rejoindre la liste d'attente</a
+                >
+                <a href="#features" class="btn-ghost" data-i18n="hero.cta2"
+                    >Découvrir les fonctionnalités</a
+                >
+            </div>
+            <div class="hero-visual">
+                <div class="brew-icon">🍺</div>
+            </div>
+        </section>
 
-		<section class="features" id="features">
-			<div class="section-header reveal">
-				<p class="section-eyebrow">Fonctionnalités</p>
-				<h2 class="section-title">
-					Tout ce qu'il faut pour bien brasser.
-				</h2>
-			</div>
-			<div class="features-grid">
-				<div class="feature reveal">
-					<div class="feature-num">01</div>
-					<h3 class="feature-title">Gestion des recettes</h3>
-					<p class="feature-body">
-						Créez, éditez et partagez vos recettes. Calcul
-						automatique de l'IBU, EBC et ABV. Importez depuis
-						Brewfather en un clic.
-					</p>
-					<span class="feature-tag">Gratuit</span>
-				</div>
-				<div class="feature reveal">
-					<div class="feature-num">02</div>
-					<h3 class="feature-title">Suivi des brassins</h3>
-					<p class="feature-body">
-						Planifiez vos brassins, suivez la fermentation cuve par
-						cuve. Journal de bord avec notes et photos. Coût réel
-						calculé au litre.
-					</p>
-					<span class="feature-tag">Gratuit</span>
-				</div>
-				<div class="feature reveal">
-					<div class="feature-num">03</div>
-					<h3 class="feature-title">DRM automatique</h3>
-					<p class="feature-body">
-						Générez votre Déclaration Récapitulative Mensuelle pour
-						les douanes françaises en un clic. Conformité belge,
-						allemande et espagnole incluse.
-					</p>
-					<span class="feature-tag">Plan Craft</span>
-				</div>
-				<div class="feature reveal">
-					<div class="feature-num">04</div>
-					<h3 class="feature-title">Stocks & matières premières</h3>
-					<p class="feature-body">
-						Suivez vos niveaux de malt, houblon et levures. Alertes
-						automatiques avant rupture. Historique des achats et
-						coûts fournisseurs.
-					</p>
-					<span class="feature-tag">Gratuit</span>
-				</div>
-				<div class="feature reveal">
-					<div class="feature-num">05</div>
-					<h3 class="feature-title">Facturation clients</h3>
-					<p class="feature-body">
-						Créez et envoyez des factures conformes à l'e-facture
-						Factur-X. Suivi fûts consignés. Export comptable pour
-						votre expert-comptable.
-					</p>
-					<span class="feature-tag">Plan Craft</span>
-				</div>
-				<div class="feature reveal">
-					<div class="feature-num">06</div>
-					<h3 class="feature-title">Analytics comparatifs</h3>
-					<p class="feature-body">
-						Comparez vos rendements, coûts et performances aux
-						brasseries similaires en Europe. Données anonymisées,
-						insights actionnables.
-					</p>
-					<span class="feature-tag">Plan Craft</span>
-				</div>
-			</div>
-		</section>
+        <section class="stats">
+            <div class="stat-item reveal">
+                <div class="stat-num">0€</div>
+                <div class="stat-label" data-i18n="stats.s1">
+                    Pour commencer — plan gratuit permanent
+                </div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-num">6+</div>
+                <div class="stat-label" data-i18n="stats.s2">
+                    Pays européens supportés dès le lancement
+                </div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-num">1 clic</div>
+                <div class="stat-label" data-i18n="stats.s3">
+                    Pour générer votre DRM mensuelle
+                </div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-num">∞</div>
+                <div class="stat-label" data-i18n="stats.s4">
+                    Recettes dans la bibliothèque communautaire
+                </div>
+            </div>
+        </section>
 
-		<section class="community" id="community">
-			<div class="community-bg"></div>
-			<div class="community-inner">
-				<div class="community-text reveal">
-					<p class="section-eyebrow">Communauté</p>
-					<h2 class="section-title">
-						Les recettes des meilleurs brasseurs d'Europe.
-					</h2>
-					<p>
-						Brewik n'est pas qu'un outil de gestion — c'est un
-						réseau. Partagez vos recettes, forkez celles des autres,
-						comparez vos méthodes. Une bibliothèque vivante
-						construite par et pour les brasseurs artisanaux.
-					</p>
-				</div>
-				<div class="recipe-cards reveal">
-					<div class="recipe-card">
-						<div class="recipe-header">
-							<span class="recipe-name">Amber des Flandres</span>
-							<span class="recipe-style">Ambrée belge</span>
-						</div>
-						<div class="recipe-meta">
-							<span>IBU <strong>28</strong></span>
-							<span>EBC <strong>22</strong></span>
-							<span>ABV <strong>6.2%</strong></span>
-							<span>Coût <strong>0,38€/L</strong></span>
-						</div>
-						<div class="recipe-author">
-							Par Brasserie du Vieux Moulin · 142 forks · Belgique
-						</div>
-					</div>
-					<div class="recipe-card">
-						<div class="recipe-header">
-							<span class="recipe-name">Weizen Sauvage</span>
-							<span class="recipe-style">Blanche</span>
-						</div>
-						<div class="recipe-meta">
-							<span>IBU <strong>14</strong></span>
-							<span>EBC <strong>8</strong></span>
-							<span>ABV <strong>5.1%</strong></span>
-							<span>Coût <strong>0,29€/L</strong></span>
-						</div>
-						<div class="recipe-author">
-							Par La Brasserie des Crêtes · 89 forks · France
-						</div>
-					</div>
-					<div class="recipe-card">
-						<div class="recipe-header">
-							<span class="recipe-name"
-								>Black IPA Pyrénéenne</span
-							>
-							<span class="recipe-style">IPA noire</span>
-						</div>
-						<div class="recipe-meta">
-							<span>IBU <strong>65</strong></span>
-							<span>EBC <strong>80</strong></span>
-							<span>ABV <strong>7.4%</strong></span>
-							<span>Coût <strong>0,52€/L</strong></span>
-						</div>
-						<div class="recipe-author">
-							Par Cerveza Montaña · 67 forks · Espagne
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+        <section class="features" id="features">
+            <div class="section-header reveal">
+                <p class="section-eyebrow" data-i18n="features.eyebrow">
+                    Fonctionnalités
+                </p>
+                <h2 class="section-title" data-i18n="features.title">
+                    Tout ce qu'il faut pour bien brasser.
+                </h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature reveal">
+                    <div class="feature-num">01</div>
+                    <h3 class="feature-title" data-i18n="features.f1title">
+                        Gestion des recettes
+                    </h3>
+                    <p class="feature-body" data-i18n="features.f1body">
+                        Créez, éditez et partagez vos recettes. Calcul
+                        automatique de l'IBU, EBC et ABV. Importez depuis
+                        Brewfather en un clic.
+                    </p>
+                    <span class="feature-tag" data-i18n="features.f1tag"
+                        >Gratuit</span
+                    >
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-num">02</div>
+                    <h3 class="feature-title" data-i18n="features.f2title">
+                        Suivi des brassins
+                    </h3>
+                    <p class="feature-body" data-i18n="features.f2body">
+                        Planifiez vos brassins, suivez la fermentation cuve par
+                        cuve. Journal de bord avec notes et photos. Coût réel
+                        calculé au litre.
+                    </p>
+                    <span class="feature-tag" data-i18n="features.f2tag"
+                        >Gratuit</span
+                    >
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-num">03</div>
+                    <h3 class="feature-title" data-i18n="features.f3title">
+                        DRM automatique
+                    </h3>
+                    <p class="feature-body" data-i18n="features.f3body">
+                        Générez votre Déclaration Récapitulative Mensuelle pour
+                        les douanes françaises en un clic. Conformité belge,
+                        allemande et espagnole incluse.
+                    </p>
+                    <span class="feature-tag" data-i18n="features.f3tag"
+                        >Plan Craft</span
+                    >
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-num">04</div>
+                    <h3 class="feature-title" data-i18n="features.f4title">
+                        Stocks & matières premières
+                    </h3>
+                    <p class="feature-body" data-i18n="features.f4body">
+                        Suivez vos niveaux de malt, houblon et levures. Alertes
+                        automatiques avant rupture. Historique des achats et
+                        coûts fournisseurs.
+                    </p>
+                    <span class="feature-tag" data-i18n="features.f4tag"
+                        >Gratuit</span
+                    >
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-num">05</div>
+                    <h3 class="feature-title" data-i18n="features.f5title">
+                        Facturation clients
+                    </h3>
+                    <p class="feature-body" data-i18n="features.f5body">
+                        Créez et envoyez des factures conformes à l'e-facture
+                        Factur-X. Suivi fûts consignés. Export comptable pour
+                        votre expert-comptable.
+                    </p>
+                    <span class="feature-tag" data-i18n="features.f5tag"
+                        >Plan Craft</span
+                    >
+                </div>
+                <div class="feature reveal">
+                    <div class="feature-num">06</div>
+                    <h3 class="feature-title" data-i18n="features.f6title">
+                        Analytics comparatifs
+                    </h3>
+                    <p class="feature-body" data-i18n="features.f6body">
+                        Comparez vos rendements, coûts et performances aux
+                        brasseries similaires en Europe. Données anonymisées,
+                        insights actionnables.
+                    </p>
+                    <span class="feature-tag" data-i18n="features.f6tag"
+                        >Plan Craft</span
+                    >
+                </div>
+            </div>
+        </section>
 
-		<section class="pricing" id="pricing">
-			<div class="section-header reveal">
-				<p class="section-eyebrow">Tarifs</p>
-				<h2 class="section-title">
-					Gratuit pour commencer.<br />Puissant pour grandir.
-				</h2>
-			</div>
-			<div class="pricing-grid">
-				<div class="plan reveal">
-					<p class="plan-name">Hobbyist</p>
-					<p class="plan-price">0€ <span>/ mois</span></p>
-					<p class="plan-desc">
-						Pour les homebrewers et les toutes petites brasseries
-						qui démarrent.
-					</p>
-					<ul class="plan-feats">
-						<li class="active">Recettes illimitées</li>
-						<li class="active">5 brassins par mois</li>
-						<li class="active">Suivi de 2 cuves</li>
-						<li class="active">Accès communauté recettes</li>
-						<li class="active">Coût estimé par brassin</li>
-						<li class="locked">DRM automatique</li>
-						<li class="locked">Facturation clients</li>
-						<li class="locked">Analytics comparatifs</li>
-					</ul>
-					<a href="#waitlist" class="plan-btn"
-						>Commencer gratuitement</a
-					>
-				</div>
-				<div class="plan featured reveal">
-					<div class="plan-badge">Le plus populaire</div>
-					<p class="plan-name">Craft</p>
-					<p class="plan-price">49€ <span>/ mois</span></p>
-					<p class="plan-desc">
-						Pour les brasseries artisanales professionnelles qui
-						veulent tout gérer au même endroit.
-					</p>
-					<ul class="plan-feats">
-						<li class="active">Brassins illimités</li>
-						<li class="active">Cuves illimitées</li>
-						<li class="active">DRM auto (FR, BE, DE, ES)</li>
-						<li class="active">Facturation & e-facture</li>
-						<li class="active">Coût réel au litre</li>
-						<li class="active">Analytics comparatifs EU</li>
-						<li class="active">Suivi fûts consignés</li>
-						<li class="active">3 utilisateurs</li>
-					</ul>
-					<a href="#waitlist" class="plan-btn primary"
-						>Rejoindre la bêta</a
-					>
-				</div>
-				<div class="plan reveal">
-					<p class="plan-name">Pro</p>
-					<p class="plan-price">119€ <span>/ mois</span></p>
-					<p class="plan-desc">
-						Pour les brasseries en croissance avec plusieurs sites
-						ou une équipe élargie.
-					</p>
-					<ul class="plan-feats">
-						<li class="active">Tout Craft inclus</li>
-						<li class="active">Multi-sites</li>
-						<li class="active">Utilisateurs illimités</li>
-						<li class="active">Intégration IoT cuves</li>
-						<li class="active">API accès complet</li>
-						<li class="active">Support prioritaire</li>
-						<li class="active">Conformité multi-pays EU</li>
-						<li class="active">Portail B2B white-label</li>
-					</ul>
-					<a href="#waitlist" class="plan-btn">Nous contacter</a>
-				</div>
-			</div>
-		</section>
-		<script>
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((e) => {
-						if (e.isIntersecting) {
-							e.target.classList.add("visible");
-							observer.unobserve(e.target);
-						}
-					});
-				},
-				{ threshold: 0.15 },
-			);
-			document
-				.querySelectorAll(".reveal")
-				.forEach((el) => observer.observe(el));
-		</script>
-	</body>
+        <section class="community" id="community">
+            <div class="community-bg"></div>
+            <div class="community-inner">
+                <div class="community-text reveal">
+                    <p class="section-eyebrow" data-i18n="community.eyebrow">
+                        Communauté
+                    </p>
+                    <h2 class="section-title" data-i18n="community.title">
+                        Les recettes des meilleurs brasseurs d'Europe.
+                    </h2>
+                    <p data-i18n="community.body">
+                        Brewik n'est pas qu'un outil de gestion — c'est un
+                        réseau. Partagez vos recettes, forkez celles des autres,
+                        comparez vos méthodes. Une bibliothèque vivante
+                        construite par et pour les brasseurs artisanaux.
+                    </p>
+                </div>
+                <div class="recipe-cards reveal">
+                    <div class="recipe-card">
+                        <div class="recipe-header">
+                            <span class="recipe-name">Amber des Flandres</span>
+                            <span class="recipe-style">Ambrée belge</span>
+                        </div>
+                        <div class="recipe-meta">
+                            <span>IBU <strong>28</strong></span>
+                            <span>EBC <strong>22</strong></span>
+                            <span>ABV <strong>6.2%</strong></span>
+                            <span>0,38€/L</span>
+                        </div>
+                        <div
+                            class="recipe-author"
+                            data-i18n="community.r1author"
+                        >
+                            Par Brasserie du Vieux Moulin · 142 forks · Belgique
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <div class="recipe-header">
+                            <span class="recipe-name">Weizen Sauvage</span>
+                            <span class="recipe-style">Blanche</span>
+                        </div>
+                        <div class="recipe-meta">
+                            <span>IBU <strong>14</strong></span>
+                            <span>EBC <strong>8</strong></span>
+                            <span>ABV <strong>5.1%</strong></span>
+                            <span>0,29€/L</span>
+                        </div>
+                        <div
+                            class="recipe-author"
+                            data-i18n="community.r2author"
+                        >
+                            Par La Brasserie des Crêtes · 89 forks · France
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <div class="recipe-header">
+                            <span class="recipe-name"
+                                >Black IPA Pyrénéenne</span
+                            >
+                            <span class="recipe-style">IPA noire</span>
+                        </div>
+                        <div class="recipe-meta">
+                            <span>IBU <strong>65</strong></span>
+                            <span>EBC <strong>80</strong></span>
+                            <span>ABV <strong>7.4%</strong></span>
+                            <span>0,52€/L</span>
+                        </div>
+                        <div
+                            class="recipe-author"
+                            data-i18n="community.r3author"
+                        >
+                            Par Cerveza Montaña · 67 forks · Espagne
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing" id="pricing">
+            <div class="section-header reveal">
+                <p class="section-eyebrow" data-i18n="pricing.eyebrow">
+                    Tarifs
+                </p>
+                <h2 class="section-title" data-i18n-html="pricing.title">
+                    Gratuit pour commencer.<br />Puissant pour grandir.
+                </h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="plan reveal">
+                    <p class="plan-name">Hobbyist</p>
+                    <p class="plan-price">0€ <span>/ mois</span></p>
+                    <p class="plan-desc" data-i18n="pricing.hob.desc">
+                        Pour les homebrewers et les toutes petites brasseries
+                        qui démarrent.
+                    </p>
+                    <ul class="plan-feats">
+                        <li class="active" data-i18n="pricing.hob.f1">
+                            Recettes illimitées
+                        </li>
+                        <li class="active" data-i18n="pricing.hob.f2">
+                            5 brassins par mois
+                        </li>
+                        <li class="active" data-i18n="pricing.hob.f3">
+                            Suivi de 2 cuves
+                        </li>
+                        <li class="active" data-i18n="pricing.hob.f4">
+                            Accès communauté recettes
+                        </li>
+                        <li class="active" data-i18n="pricing.hob.f5">
+                            Coût estimé par brassin
+                        </li>
+                        <li class="locked" data-i18n="pricing.hob.f6">
+                            DRM automatique
+                        </li>
+                        <li class="locked" data-i18n="pricing.hob.f7">
+                            Facturation clients
+                        </li>
+                        <li class="locked" data-i18n="pricing.hob.f8">
+                            Analytics comparatifs
+                        </li>
+                    </ul>
+                    <a
+                        href="#waitlist"
+                        class="plan-btn"
+                        data-i18n="pricing.hob.btn"
+                        >Commencer gratuitement</a
+                    >
+                </div>
+                <div class="plan featured reveal">
+                    <div class="plan-badge" data-i18n="pricing.badge">
+                        Le plus populaire
+                    </div>
+                    <p class="plan-name">Craft</p>
+                    <p class="plan-price">49€ <span>/ mois</span></p>
+                    <p class="plan-desc" data-i18n="pricing.craft.desc">
+                        Pour les brasseries artisanales professionnelles qui
+                        veulent tout gérer au même endroit.
+                    </p>
+                    <ul class="plan-feats">
+                        <li class="active" data-i18n="pricing.craft.f1">
+                            Brassins illimités
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f2">
+                            Cuves illimitées
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f3">
+                            DRM auto (FR, BE, DE, ES)
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f4">
+                            Facturation & e-facture
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f5">
+                            Coût réel au litre
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f6">
+                            Analytics comparatifs EU
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f7">
+                            Suivi fûts consignés
+                        </li>
+                        <li class="active" data-i18n="pricing.craft.f8">
+                            3 utilisateurs
+                        </li>
+                    </ul>
+                    <a
+                        href="#waitlist"
+                        class="plan-btn primary"
+                        data-i18n="pricing.craft.btn"
+                        >Rejoindre la bêta</a
+                    >
+                </div>
+                <div class="plan reveal">
+                    <p class="plan-name">Pro</p>
+                    <p class="plan-price">119€ <span>/ mois</span></p>
+                    <p class="plan-desc" data-i18n="pricing.pro.desc">
+                        Pour les brasseries en croissance avec plusieurs sites
+                        ou une équipe élargie.
+                    </p>
+                    <ul class="plan-feats">
+                        <li class="active" data-i18n="pricing.pro.f1">
+                            Tout Craft inclus
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f2">
+                            Multi-sites
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f3">
+                            Utilisateurs illimités
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f4">
+                            Intégration IoT cuves
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f5">
+                            API accès complet
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f6">
+                            Support prioritaire
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f7">
+                            Conformité multi-pays EU
+                        </li>
+                        <li class="active" data-i18n="pricing.pro.f8">
+                            Portail B2B white-label
+                        </li>
+                    </ul>
+                    <a
+                        href="#waitlist"
+                        class="plan-btn"
+                        data-i18n="pricing.pro.btn"
+                        >Nous contacter</a
+                    >
+                </div>
+            </div>
+        </section>
+
+        <section class="waitlist" id="waitlist">
+            <div class="waitlist-bg"></div>
+            <div class="waitlist-count reveal" data-i18n="waitlist.count">
+                Soyez parmi les premiers brasseurs
+            </div>
+            <h2 class="section-title reveal" data-i18n-html="waitlist.title">Soyez parmi<br />les premiers.</h2>
+            <p class="reveal" data-i18n="waitlist.sub">
+                La bêta ouvre dans quelques mois. Inscrivez-vous pour un accès
+                anticipé gratuit et aidez à façonner le produit.
+            </p>
+
+            <!--
+    FORMSPREE : 3 étapes
+    1. Créer un compte sur formspree.io (gratuit)
+    2. Créer un nouveau formulaire, copier l'ID généré
+    3. Remplacer "VOTRE_ID_FORMSPREE" ci-dessous par cet ID (ex: xpwzgkbl)
+  -->
+            <form
+                id="waitlist-form"
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                class="waitlist-form reveal"
+                onsubmit="handleSubmit(event)"
+            >
+                <!-- Champ honeypot anti-spam (caché) -->
+                <input type="text" name="_gotcha" style="display: none" />
+                <!-- Sujet de l'email reçu -->
+                <input
+                    type="hidden"
+                    name="_subject"
+                    value="Nouvelle inscription Brewik waitlist"
+                />
+                <input
+                    type="hidden"
+                    name="access_key"
+                    value="6c4daf96-e4f1-481f-bc7c-9552847020fa"
+                />
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="votre@brasserie.fr"
+                    required
+                    autocomplete="email"
+                    data-i18n-placeholder="waitlist.placeholder"
+                />
+                <button type="submit" id="submit-btn" data-i18n="waitlist.btn">Rejoindre la bêta</button>
+            </form>
+
+            <p class="waitlist-note reveal" data-i18n="waitlist.note">
+                Aucun spam. Juste un email quand on ouvre les portes.
+            </p>
+            <p class="success-msg" id="success-msg" data-i18n="waitlist.success">
+                Parfait — vous êtes sur la liste ! On vous prévient en premier.
+                Santé 🍺
+            </p>
+            <p class="error-msg" id="error-msg" data-i18n-html="waitlist.error">
+                Une erreur est survenue. Réessayez ou écrivez-nous à
+                hello@brewik.com
+            </p>
+        </section>
+
+        <footer>
+            <div class="footer-logo">Brewik</div>
+            <div class="footer-links">
+                <a href="#features" data-i18n="footer.features">Fonctionnalités</a>
+                <a href="#pricing" data-i18n="footer.pricing">Tarifs</a>
+            </div>
+            <p class="footer-text" data-i18n="footer.copy">
+                © 2026 Brewik · Fait par un brasseur développeur 🇪🇺
+            </p>
+        </footer>
+
+        <script>
+            const translations = {
+                fr: {
+                    meta: {
+                        title: "Brewik — Gérez votre brasserie, ensemble",
+                        description:
+                            "Brewik réunit tout ce dont votre brasserie artisanale a besoin — recettes, brassins, stocks, DRM — avec une communauté de brasseurs passionnés à travers l'Europe. Gratuit pour commencer.",
+                        ogTitle: "Brewik — Gérez votre brasserie, ensemble",
+                        ogDesc: "Logiciel de gestion pour brasseries artisanales. Gratuit pour commencer, communauté européenne de brasseurs.",
+                    },
+                    nav: {
+                        features: "Fonctionnalités",
+                        community: "Communauté",
+                        pricing: "Tarifs",
+                        cta: "Rejoindre la bêta",
+                    },
+                    hero: {
+                        badge: "Bêta ouverte bientôt — 0€ pour commencer",
+                        eyebrow:
+                            "Logiciel de gestion pour brasseries artisanales",
+                        title: "Brassez.<br /><em>Gérez.</em><br />Partagez.",
+                        sub: "Brewik réunit tout ce dont votre brasserie a besoin — recettes, brassins, stocks, DRM — avec une communauté de brasseurs passionnés à travers l'Europe.",
+                        cta1: "Rejoindre la liste d'attente",
+                        cta2: "Découvrir les fonctionnalités",
+                    },
+                    stats: {
+                        s1: "Pour commencer — plan gratuit permanent",
+                        s2: "Pays européens supportés dès le lancement",
+                        s3: "Pour générer votre DRM mensuelle",
+                        s4: "Recettes dans la bibliothèque communautaire",
+                    },
+                    features: {
+                        eyebrow: "Fonctionnalités",
+                        title: "Tout ce qu'il faut pour bien brasser.",
+                        f1title: "Gestion des recettes",
+                        f1body: "Créez, éditez et partagez vos recettes. Calcul automatique de l'IBU, EBC et ABV. Importez depuis Brewfather en un clic.",
+                        f1tag: "Gratuit",
+                        f2title: "Suivi des brassins",
+                        f2body: "Planifiez vos brassins, suivez la fermentation cuve par cuve. Journal de bord avec notes et photos. Coût réel calculé au litre.",
+                        f2tag: "Gratuit",
+                        f3title: "DRM automatique",
+                        f3body: "Générez votre Déclaration Récapitulative Mensuelle pour les douanes françaises en un clic. Conformité belge, allemande et espagnole incluse.",
+                        f3tag: "Plan Craft",
+                        f4title: "Stocks & matières premières",
+                        f4body: "Suivez vos niveaux de malt, houblon et levures. Alertes automatiques avant rupture. Historique des achats et coûts fournisseurs.",
+                        f4tag: "Gratuit",
+                        f5title: "Facturation clients",
+                        f5body: "Créez et envoyez des factures conformes à l'e-facture Factur-X. Suivi fûts consignés. Export comptable pour votre expert-comptable.",
+                        f5tag: "Plan Craft",
+                        f6title: "Analytics comparatifs",
+                        f6body: "Comparez vos rendements, coûts et performances aux brasseries similaires en Europe. Données anonymisées, insights actionnables.",
+                        f6tag: "Plan Craft",
+                    },
+                    community: {
+                        eyebrow: "Communauté",
+                        title: "Les recettes des meilleurs brasseurs d'Europe.",
+                        body: "Brewik n'est pas qu'un outil de gestion — c'est un réseau. Partagez vos recettes, forkez celles des autres, comparez vos méthodes. Une bibliothèque vivante construite par et pour les brasseurs artisanaux.",
+                        r1author:
+                            "Par Brasserie du Vieux Moulin · 142 forks · Belgique",
+                        r2author:
+                            "Par La Brasserie des Crêtes · 89 forks · France",
+                        r3author: "Par Cerveza Montaña · 67 forks · Espagne",
+                    },
+                    pricing: {
+                        eyebrow: "Tarifs",
+                        title: "Gratuit pour commencer.<br />Puissant pour grandir.",
+                        badge: "Le plus populaire",
+                        hob: {
+                            desc: "Pour les homebrewers et les toutes petites brasseries qui démarrent.",
+                            f1: "Recettes illimitées",
+                            f2: "5 brassins par mois",
+                            f3: "Suivi de 2 cuves",
+                            f4: "Accès communauté recettes",
+                            f5: "Coût estimé par brassin",
+                            f6: "DRM automatique",
+                            f7: "Facturation clients",
+                            f8: "Analytics comparatifs",
+                            btn: "Commencer gratuitement",
+                        },
+                        craft: {
+                            desc: "Pour les brasseries artisanales professionnelles qui veulent tout gérer au même endroit.",
+                            f1: "Brassins illimités",
+                            f2: "Cuves illimitées",
+                            f3: "DRM auto (FR, BE, DE, ES)",
+                            f4: "Facturation & e-facture",
+                            f5: "Coût réel au litre",
+                            f6: "Analytics comparatifs EU",
+                            f7: "Suivi fûts consignés",
+                            f8: "3 utilisateurs",
+                            btn: "Rejoindre la bêta",
+                        },
+                        pro: {
+                            desc: "Pour les brasseries en croissance avec plusieurs sites ou une équipe élargie.",
+                            f1: "Tout Craft inclus",
+                            f2: "Multi-sites",
+                            f3: "Utilisateurs illimités",
+                            f4: "Intégration IoT cuves",
+                            f5: "API accès complet",
+                            f6: "Support prioritaire",
+                            f7: "Conformité multi-pays EU",
+                            f8: "Portail B2B white-label",
+                            btn: "Nous contacter",
+                        },
+                    },
+                    waitlist: {
+                        count: "Soyez parmi les premiers brasseurs",
+                        title: "Soyez parmi<br />les premiers.",
+                        sub: "La bêta ouvre dans quelques mois. Inscrivez-vous pour un accès anticipé gratuit et aidez à façonner le produit.",
+                        placeholder: "votre@brasserie.fr",
+                        btn: "Rejoindre la bêta",
+                        sending: "Envoi…",
+                        note: "Aucun spam. Juste un email quand on ouvre les portes.",
+                        success: "Parfait — vous êtes sur la liste ! On vous prévient en premier. Santé 🍺",
+                        error: "Une erreur est survenue. Réessayez ou écrivez-nous à hello@brewik.com",
+                    },
+                    footer: {
+                        features: "Fonctionnalités",
+                        pricing: "Tarifs",
+                        copy: "© 2026 Brewik · Fait par un brasseur développeur 🇪🇺",
+                    },
+                },
+                en: {
+                    meta: {
+                        title: "Brewik — Manage your brewery, together",
+                        description:
+                            "Brewik brings together everything your craft brewery needs — recipes, batches, stock, excise — with a community of passionate brewers across Europe. Free to start.",
+                        ogTitle: "Brewik — Manage your brewery, together",
+                        ogDesc: "Management software for craft breweries. Free to start, European brewer community.",
+                    },
+                    nav: {
+                        features: "Features",
+                        community: "Community",
+                        pricing: "Pricing",
+                        cta: "Join the beta",
+                    },
+                    hero: {
+                        badge: "Open beta soon — Free to start",
+                        eyebrow: "Management software for craft breweries",
+                        title: "Brew.<br /><em>Manage.</em><br />Share.",
+                        sub: "Brewik brings together everything your brewery needs — recipes, batches, stock, excise — with a community of passionate brewers across Europe.",
+                        cta1: "Join the waitlist",
+                        cta2: "Discover features",
+                    },
+                    stats: {
+                        s1: "To start — free plan forever",
+                        s2: "European countries supported at launch",
+                        s3: "To generate your monthly excise report",
+                        s4: "Recipes in the community library",
+                    },
+                    features: {
+                        eyebrow: "Features",
+                        title: "Everything you need to brew well.",
+                        f1title: "Recipe management",
+                        f1body: "Create, edit and share your recipes. Automatic IBU, EBC and ABV calculation. Import from Brewfather in one click.",
+                        f1tag: "Free",
+                        f2title: "Batch tracking",
+                        f2body: "Plan your batches, track fermentation tank by tank. Logbook with notes and photos. Real cost calculated per liter.",
+                        f2tag: "Free",
+                        f3title: "Automatic excise reports",
+                        f3body: "Generate your Monthly Summary Declaration for French customs in one click. Belgian, German and Spanish compliance included.",
+                        f3tag: "Craft Plan",
+                        f4title: "Stock & raw materials",
+                        f4body: "Track your malt, hop and yeast levels. Automatic low-stock alerts. Purchase history and supplier costs.",
+                        f4tag: "Free",
+                        f5title: "Client invoicing",
+                        f5body: "Create and send Factur-X compliant e-invoices. Keg deposit tracking. Accounting export for your accountant.",
+                        f5tag: "Craft Plan",
+                        f6title: "Comparative analytics",
+                        f6body: "Compare your yields, costs and performance with similar breweries in Europe. Anonymized data, actionable insights.",
+                        f6tag: "Craft Plan",
+                    },
+                    community: {
+                        eyebrow: "Community",
+                        title: "Recipes from the best brewers in Europe.",
+                        body: "Brewik is more than a management tool — it's a network. Share your recipes, fork others', compare your methods. A living library built by and for craft brewers.",
+                        r1author:
+                            "By Brasserie du Vieux Moulin · 142 forks · Belgium",
+                        r2author:
+                            "By La Brasserie des Crêtes · 89 forks · France",
+                        r3author: "By Cerveza Montaña · 67 forks · Spain",
+                    },
+                    pricing: {
+                        eyebrow: "Pricing",
+                        title: "Free to start.<br />Powerful to grow.",
+                        badge: "Most popular",
+                        hob: {
+                            desc: "For homebrewers and very small breweries just getting started.",
+                            f1: "Unlimited recipes",
+                            f2: "5 batches per month",
+                            f3: "2 fermenter tracking",
+                            f4: "Community recipe access",
+                            f5: "Estimated cost per batch",
+                            f6: "Automatic excise reports",
+                            f7: "Client invoicing",
+                            f8: "Comparative analytics",
+                            btn: "Start for free",
+                        },
+                        craft: {
+                            desc: "For professional craft breweries that want to manage everything in one place.",
+                            f1: "Unlimited batches",
+                            f2: "Unlimited fermenters",
+                            f3: "Auto excise (FR, BE, DE, ES)",
+                            f4: "Invoicing & e-invoice",
+                            f5: "Real cost per liter",
+                            f6: "EU comparative analytics",
+                            f7: "Keg deposit tracking",
+                            f8: "3 users",
+                            btn: "Join the beta",
+                        },
+                        pro: {
+                            desc: "For growing breweries with multiple sites or a larger team.",
+                            f1: "All Craft included",
+                            f2: "Multi-site",
+                            f3: "Unlimited users",
+                            f4: "Fermenter IoT integration",
+                            f5: "Full API access",
+                            f6: "Priority support",
+                            f7: "EU multi-country compliance",
+                            f8: "White-label B2B portal",
+                            btn: "Contact us",
+                        },
+                    },
+                    waitlist: {
+                        count: "Be among the first brewers",
+                        title: "Be among<br />the first.",
+                        sub: "The beta opens in a few months. Sign up for free early access and help shape the product.",
+                        placeholder: "your@brewery.com",
+                        btn: "Join the beta",
+                        sending: "Sending…",
+                        note: "No spam. Just one email when we open the doors.",
+                        success: "Perfect — you're on the list! We'll let you know first. Cheers 🍺",
+                        error: "An error occurred. Please try again or write to us at hello@brewik.com",
+                    },
+                    footer: {
+                        features: "Features",
+                        pricing: "Pricing",
+                        copy: "© 2026 Brewik · Built by a brewer-developer 🇪🇺",
+                    },
+                },
+                es: {
+                    meta: {
+                        title: "Brewik — Gestiona tu cervecería, juntos",
+                        description:
+                            "Brewik reúne todo lo que tu cervecería artesanal necesita — recetas, lotes, existencias, declaraciones — con una comunidad de cerveceros apasionados por toda Europa. Gratis para empezar.",
+                        ogTitle: "Brewik — Gestiona tu cervecería, juntos",
+                        ogDesc: "Software de gestión para cervecerías artesanales. Gratis para empezar, comunidad europea de cerveceros.",
+                    },
+                    nav: {
+                        features: "Funcionalidades",
+                        community: "Comunidad",
+                        pricing: "Precios",
+                        cta: "Unirse a la beta",
+                    },
+                    hero: {
+                        badge: "Beta abierta pronto — Gratis para empezar",
+                        eyebrow:
+                            "Software de gestión para cervecerías artesanales",
+                        title: "Elabora.<br /><em>Gestiona.</em><br />Comparte.",
+                        sub: "Brewik reúne todo lo que necesita tu cervecería — recetas, lotes, existencias, declaraciones — con una comunidad de cerveceros apasionados por toda Europa.",
+                        cta1: "Unirse a la lista de espera",
+                        cta2: "Descubrir funcionalidades",
+                    },
+                    stats: {
+                        s1: "Para empezar — plan gratuito permanente",
+                        s2: "Países europeos disponibles desde el lanzamiento",
+                        s3: "Para generar tu declaración mensual",
+                        s4: "Recetas en la biblioteca comunitaria",
+                    },
+                    features: {
+                        eyebrow: "Funcionalidades",
+                        title: "Todo lo que necesitas para elaborar bien.",
+                        f1title: "Gestión de recetas",
+                        f1body: "Crea, edita y comparte tus recetas. Cálculo automático de IBU, EBC y ABV. Importa desde Brewfather en un clic.",
+                        f1tag: "Gratis",
+                        f2title: "Seguimiento de lotes",
+                        f2body: "Planifica tus lotes, sigue la fermentación depósito por depósito. Diario con notas y fotos. Coste real calculado por litro.",
+                        f2tag: "Gratis",
+                        f3title: "Declaraciones fiscales automáticas",
+                        f3body: "Genera tu declaración recapitulativa mensual para las aduanas en un clic. Conformidad belga, alemana y española incluida.",
+                        f3tag: "Plan Craft",
+                        f4title: "Inventario y materias primas",
+                        f4body: "Controla tus niveles de malta, lúpulo y levadura. Alertas automáticas antes de rotura de stock. Historial de compras y costes de proveedores.",
+                        f4tag: "Gratis",
+                        f5title: "Facturación a clientes",
+                        f5body: "Crea y envía facturas electrónicas conformes a Factur-X. Seguimiento de barriles en depósito. Exportación contable para tu contable.",
+                        f5tag: "Plan Craft",
+                        f6title: "Analítica comparativa",
+                        f6body: "Compara tus rendimientos, costes y resultados con cervecerías similares en Europa. Datos anonimizados, información accionable.",
+                        f6tag: "Plan Craft",
+                    },
+                    community: {
+                        eyebrow: "Comunidad",
+                        title: "Las recetas de los mejores cerveceros de Europa.",
+                        body: "Brewik es más que una herramienta de gestión — es una red. Comparte tus recetas, bifurca las de otros, compara tus métodos. Una biblioteca viva construida por y para los cerveceros artesanales.",
+                        r1author:
+                            "Por Brasserie du Vieux Moulin · 142 forks · Bélgica",
+                        r2author:
+                            "Por La Brasserie des Crêtes · 89 forks · Francia",
+                        r3author: "Por Cerveza Montaña · 67 forks · España",
+                    },
+                    pricing: {
+                        eyebrow: "Precios",
+                        title: "Gratis para empezar.<br />Potente para crecer.",
+                        badge: "El más popular",
+                        hob: {
+                            desc: "Para homebrewers y cervecerías muy pequeñas que empiezan.",
+                            f1: "Recetas ilimitadas",
+                            f2: "5 lotes por mes",
+                            f3: "Seguimiento de 2 fermentadores",
+                            f4: "Acceso comunidad recetas",
+                            f5: "Coste estimado por lote",
+                            f6: "Declaraciones automáticas",
+                            f7: "Facturación a clientes",
+                            f8: "Analítica comparativa",
+                            btn: "Empezar gratis",
+                        },
+                        craft: {
+                            desc: "Para cervecerías artesanales profesionales que quieren gestionar todo en un mismo lugar.",
+                            f1: "Lotes ilimitados",
+                            f2: "Fermentadores ilimitados",
+                            f3: "Declaraciones auto (FR, BE, DE, ES)",
+                            f4: "Facturación y e-factura",
+                            f5: "Coste real por litro",
+                            f6: "Analítica comparativa UE",
+                            f7: "Seguimiento de barriles",
+                            f8: "3 usuarios",
+                            btn: "Unirse a la beta",
+                        },
+                        pro: {
+                            desc: "Para cervecerías en crecimiento con varios sitios o un equipo más amplio.",
+                            f1: "Todo Craft incluido",
+                            f2: "Multi-sede",
+                            f3: "Usuarios ilimitados",
+                            f4: "Integración IoT fermentadores",
+                            f5: "Acceso completo API",
+                            f6: "Soporte prioritario",
+                            f7: "Cumplimiento multi-país UE",
+                            f8: "Portal B2B white-label",
+                            btn: "Contáctenos",
+                        },
+                    },
+                    waitlist: {
+                        count: "Sé de los primeros cerveceros",
+                        title: "Sé de<br />los primeros.",
+                        sub: "La beta abre en pocos meses. Regístrate para acceso anticipado gratuito y ayuda a dar forma al producto.",
+                        placeholder: "tu@cerveceria.es",
+                        btn: "Unirse a la beta",
+                        sending: "Enviando…",
+                        note: "Sin spam. Solo un email cuando abramos las puertas.",
+                        success: "Perfecto — ¡estás en la lista! Te avisaremos primero. ¡Salud! 🍺",
+                        error: "Ha ocurrido un error. Inténtalo de nuevo o escríbenos a hello@brewik.com",
+                    },
+                    footer: {
+                        features: "Funcionalidades",
+                        pricing: "Precios",
+                        copy: "© 2026 Brewik · Hecho por un cervecero desarrollador 🇪🇺",
+                    },
+                },
+            };
+
+            function getNestedValue(obj, path) {
+                return path.split(".").reduce((o, k) => o?.[k], obj);
+            }
+
+            function setLang(lang) {
+                const t = translations[lang];
+                if (!t) return;
+
+                document.documentElement.lang = lang;
+                localStorage.setItem("brewik-lang", lang);
+
+                document.querySelectorAll("[data-i18n]").forEach((el) => {
+                    const val = getNestedValue(t, el.dataset.i18n);
+                    if (val !== undefined) el.textContent = val;
+                });
+
+                document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+                    const val = getNestedValue(t, el.dataset.i18nHtml);
+                    if (val !== undefined) el.innerHTML = val;
+                });
+
+                document
+                    .querySelectorAll("[data-i18n-placeholder]")
+                    .forEach((el) => {
+                        const val = getNestedValue(
+                            t,
+                            el.dataset.i18nPlaceholder,
+                        );
+                        if (val !== undefined) el.placeholder = val;
+                    });
+
+                document.title = t.meta.title;
+                document.querySelector('meta[name="description"]').content =
+                    t.meta.description;
+                document.querySelector('meta[property="og:title"]').content =
+                    t.meta.ogTitle;
+                document.querySelector(
+                    'meta[property="og:description"]',
+                ).content = t.meta.ogDesc;
+
+                document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+                    btn.classList.toggle(
+                        "active",
+                        btn.dataset.langBtn === lang,
+                    );
+                });
+            }
+
+            const SUPPORTED = ["fr", "en", "es"];
+            const saved = localStorage.getItem("brewik-lang");
+            const browser = navigator.language?.slice(0, 2);
+            const init = SUPPORTED.includes(saved)
+                ? saved
+                : SUPPORTED.includes(browser)
+                  ? browser
+                  : "fr";
+            setLang(init);
+
+            async function handleSubmit(e) {
+                e.preventDefault();
+                const form = document.getElementById("waitlist-form");
+                const btn = document.getElementById("submit-btn");
+                const success = document.getElementById("success-msg");
+                const error = document.getElementById("error-msg");
+                const t = translations[document.documentElement.lang] || translations.fr;
+
+                btn.disabled = true;
+                btn.textContent = t.waitlist.sending;
+
+                try {
+                    const formData = new FormData(form);
+                    formData.append(
+                        "access_key",
+                        "6c4daf96-e4f1-481f-bc7c-9552847020fa",
+                    );
+                    const res = await fetch(form.action, {
+                        method: "POST",
+                        body: formData,
+                        headers: { Accept: "application/json" },
+                    });
+
+                    if (res.ok) {
+                        form.style.display = "none";
+                        success.classList.add("show");
+                        error.classList.remove("show");
+                    } else {
+                        throw new Error();
+                    }
+                } catch {
+                    btn.disabled = false;
+                    btn.textContent = t.waitlist.btn;
+                    error.classList.add("show");
+                }
+            }
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add("visible");
+                            observer.unobserve(e.target);
+                        }
+                    });
+                },
+                { threshold: 0.15 },
+            );
+            document
+                .querySelectorAll(".reveal")
+                .forEach((el) => observer.observe(el));
+        </script>
+    </body>
 </html>
