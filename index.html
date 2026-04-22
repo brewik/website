@@ -1741,10 +1741,6 @@
 
                 try {
                     const formData = new FormData(form);
-                    formData.append(
-                        "access_key",
-                        "6c4daf96-e4f1-481f-bc7c-9552847020fa",
-                    );
                     const res = await fetch(form.action, {
                         method: "POST",
                         body: formData,
